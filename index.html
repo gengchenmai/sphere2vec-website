@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Sphere2Vec: A General-Purpose Location Representation Learning over a Spherical Surface for Large-Scale Geospatial Predictions">
+  <meta name="keywords" content="Spherical Location Encoder, Spatially Explicit Artificial Intelligence">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sphere2Vec: A General-Purpose Location Representation Learning over a Spherical Surface for Large-Scale Geospatial Predictions</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src=""></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <!-- Bootstrap Core CSS -->
+  <link href="./static/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://gengchenmai.github.io/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://github.com/gengchenmai/space2vec">
+            Space2Vec
+          </a>
+          <a class="navbar-item" href="https://github.com/gengchenmai/se-kge">
+            SE-KGE Geographic QA
+          </a>
+          <a class="navbar-item" href="https://www.tandfonline.com/doi/full/10.1080/13658816.2021.2004602">
+            A Review of Location Encoding
+          </a>
+          <a class="navbar-item" href="https://arxiv.org/abs/2209.15458">
+            Polygon Encoding
+          </a>
+          <a class="navbar-item" href="https://gengchenmai.github.io/csp-website/">
+            Contrastive Spatial Pre-training
+          </a>
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Sphere2Vec: A General-Purpose Location Representation Learning over a Spherical Surface for Large-Scale Geospatial Predictions</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://gengchenmai.github.io/">Gengchen Mai</a><sup>1,4,5,6 *</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=oOrQ3TMAAAAJ&hl=en">Yao Xuan</a><sup>2*</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=pkzhkzYAAAAJ&hl=en">Wenyun Zuo</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://kellyyutonghe.github.io/">Yutong He</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://tsong.me/">Jiaming Song</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://cs.stanford.edu/~ermon/">Stefano Ermon</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://people.geog.ucsb.edu/~jano/">Krzysztof Janowicz</a><sup>5,6,7</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://noon99jaki.github.io/">Ni Lao</a><sup>8*</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Spatially Explicit Artificial Intelligence Lab, Department of Geography, University of Georgia, USA</span>
+            <br>
+            <span class="author-block"><sup>2</sup>Department of Mathematics, University of California Santa Barbara, USA</span>
+            <br>
+            <span class="author-block"><sup>3</sup>Department of Biology, Stanford University, USA</span>
+            <br>
+            <span class="author-block"><sup>4</sup>Department of Computer Science, Stanford University, USA</span>
+            <br>
+            <span class="author-block"><sup>5</sup>STKO Lab, Department of Geography, University of California Santa Barbara, USA</span>
+            <br>
+            <span class="author-block"><sup>6</sup>Center for Spatial Studies, University of California Santa Barbara, USA</span>
+            <br>
+            <span class="author-block"><sup>7</sup>Department of Geography and Regional Research, University of Vienna, Austria</span>
+            <br>
+            <span class="author-block"><sup>8</sup>Google, Mountain View, California, 94043, USA</span>
+            <br>
+            <span class="author-block"><sup>*</sup>Equal contribution</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a target='_blank' href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- PDF Link. -->
+              
+              
+              <!-- <span class="link-block">
+                <a target='_blank' href="http://arxiv.org/abs/2305.01118"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>ArXiv</span>
+                </a>
+              </span> -->
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a target='_blank' href="https://www.researchgate.net/publication/370441087_CSP_Self-Supervised_Contrastive_Spatial_Pre-Training_for_Geospatial-Visual_Representations"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>ResearchGate</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a target='_blank' href="https://github.com/gengchenmai/sphere2vec"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Model Link. -->
+              <!-- <span class="link-block">
+                <a target='_blank' href="https://www.dropbox.com/s/qxr644rj1qxekn2/model_dir.zip?dl=0"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Model</span>
+                  </a>
+              </span> -->
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a target='_blank' href="https://www.dropbox.com/s/m3p2kmrxaf8d4hq/geo_prior_data_csp.zip?dl=0"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+              </span> -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
+        free-viewpoint
+        portraits.
+      </h2>
+    </div>
+  </div>
+</section> -->
+
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Conference Information</h2>
+        <div class="content has-text-justified">
+          <p>
+              <b>To be appeared at <a href="https://icml.cc/Conferences/2023/Dates" target="_blank">the Fortieth International Conference on Machine Learning (ICML 2023)</a>, Jul 23 - 29, 2023, Honolulu, Hawaii, USA.</b>
+          </p>
+          
+        </div>
+      </div>
+    </div>
+
+    
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Generating learning-friendly representations for points in space is a fundamental and long-standing problem in machine learning. Recently, multi-scale encoding schemes (such as Space2Vec and NeRF) were proposed to directly encode any point in 2D or 3D Euclidean space as a high-dimensional vector, and has been successfully applied to various (geo)spatial prediction and generative tasks. However, all current 2D and 3D location encoders are designed to model point distances in Euclidean space. So when applied to large-scale real-world GPS coordinate datasets (e.g., species or satellite images taken all over the world), which require distance metric learning on the spherical surface, both types of models can fail due to the map projection distortion problem (2D) and the spherical-to-Euclidean distance approximation error (3D). 
+          </p>
+          <p>
+            To solve these problems, we propose a multi-scale location encoder called Sphere2Vec which can preserve spherical distances when encoding point coordinates on a spherical surface. We developed a unified view of distance-reserving encoding on spheres based on the Double Fourier Sphere (DFS). We also provide theoretical proof that the Sphere2Vec encoding preserves the spherical surface distance between any two points, while existing encoding schemes such as Space2Vec and NeRF do not. 
+          </p>
+          <p>
+            Experiments on 20 synthetic datasets show that Sphere2Vec can outperform all baseline models including the state-of-the-art (SOTA) 2D location encoder (i.e., Space2Vec) and 3D encoder NeRF on all these datasets with up to 30.8% error rate reduction. We then apply Sphere2Vec to three geo-aware image classification tasks - fine-grained species recognition, Flickr image recognition, and remote sensing image classification. Results on 7 real-world datasets show the superiority of Sphere2Vec over multiple 2D and 3D location encoders on all three tasks. Further analysis shows that Sphere2Vec outperforms other location encoder models, especially in the polar regions and data-sparse areas because of its nature for spherical surface distance preservation.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Sphere2Vec Overview</h2>
+        <!-- <div class="publication-video"> -->
+          <p align="center">
+            <img src="./static/images/sphere2vec.png" alt="model" width="1000" />
+          </p>
+          <!-- <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
+        <!-- </div> -->
+        <h2 class="title is-3">The predicted spatial distributions of example species in the iNat2018 dataset </h2>
+        <!-- <div class="publication-video"> -->
+          <p align="center">
+            <img src="./static/images/species_recog.png" alt="model" width="1000" />
+          </p>
+        <h2 class="title is-3">The predicted spatial distributions of example land use types in the fMoW dataset </h2>
+        <!-- <div class="publication-video"> -->
+          <p align="center">
+            <img src="./static/images/satellite_cla.png" alt="model" width="1000" />
+          </p>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+
+
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{mai2023csp,
+  title={CSP: Self-Supervised Contrastive Spatial Pre-Training for Geospatial-Visual Representations},
+  author={Mai, Gengchen and Lao, Ni and He, Yutong and Song, Jiaming and Ermon, Stefano},
+  booktitle={International Conference on Machine Learning},
+  year={2023},
+  organization={PMLR}
+}</code></pre>
+  </div>
+</section> -->
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/papers/csp_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/gengchenmai/" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+      <a class="icon-link" href="https://gengchenmai.github.io/" class="external-link" disabled>
+        <i class="fab fa-google"></i>
+      </a>
+    </div>
+
+    <div class="featurette well" style="background-color:000000;" id="map">
+<h2 class="col-md-8">Who visit this website? </h2>
+        <script type="text/javascript" id="clustrmaps" src="//clustrmaps.com/map_v2.js?d=2asrZy95_O89tDUcH8MRW6VdAKCanFd18O40GMwb6RI&cl=ffffff&w=a"></script>
+</div>
+    
+
+    <div class="featurette well" style="background-color:000000;" id="contact">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Contact</h2>
+                    <h3 style="text-align: center;"><b>Dr. Gengchen Mai</b></h3>
+                    <div class="row">
+                        <p class="col-md-3"><b>Title:</b></p>
+                        <p class="col-md-9">Assistant Professor</p>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-3"><b>Address:</b></p>
+                        <p class="col-md-9">Room 312, Geography and Geology Building, 210 Field St</p>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-3"></p>
+                        <p class="col-md-9">Department of Geography</p>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-3"></p>
+                        <p class="col-md-9">University of Georgia</p>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-3"></p>
+                        <p class="col-md-9">Athens, Georgia 30602, USA</p>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-3"><b>Email:</b></p>
+                        <p class="col-md-9"> <a href="">gengchen.mai25 AT uga.edu</a></p>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-3"><b>Website:</b></p>
+                        <p class="col-md-9"> <a target="_blank" href="https://gengchenmai.github.io/">https://gengchenmai.github.io/</a></p>
+                    </div>
+                    <!-- <div class="row">
+                        <p class="col-md-3"><b>Address:</b></p>
+                        <p class="col-md-9"> Gates 3A 332 </p>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-3"></p>
+                        <p class="col-md-9">Department of Computer Science</p>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-3"></p>
+                        <p class="col-md-9">Stanford University</p>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-3"></p>
+                        <p class="col-md-9">Stanford, CA 94305, USA</p>
+                    </div>
+                    <div class="row">
+                        <p class="col-md-3"><b>Email:</b></p>
+                        <p class="col-md-9"> <a href="">maigch AT cs DOT stanford DOT edu</a></p>
+                    </div> -->
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                    
+                    <!-- <img  style='float:right;height:200px;margin-top:20px;margin-right:10px' src="img/logo/Stanford-University-logo.png" /> -->
+                    
+                    <img  style='float:right;height:100px;margin-top:20px;margin-right:10px' src="./static/images/Stanford-University-logo.png" />
+                    <img  style='float:right;height:100px;margin-top:20px;margin-right:10px' src="./static/images/UGA.png" />
+                    <!-- <img  style='float:left;height:100px;margin-top:120px;' src="img/logo/stko.png" />
+                
+                    <img  style='float:left;height:100px;margin-top:120px;' src="img/logo/ucsb_geography.png" />
+
+                    <img  style='float:left;height:100px;margin-top:120px;' src="img/logo/UCSB.png" /> -->
+                </div>
+            </div>
+        </div>
+
+    <div class="columns is-centered">
+      
+
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <!-- <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p> -->
+        </div>
+        <div id="graphFooter" >
+            
+            
+            
+            <div style="float:right; color:#666">
+              Copyright &copy; <a href="" target="_blank">Gengchen Mai</a> 
+            </div>
+          </div> 
+
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
