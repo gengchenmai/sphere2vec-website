@@ -9,6 +9,8 @@ If you find Sphere2Vec useful for your work please cite:
   author={Mai, Gengchen and Xuan, Yao and Zuo, Wenyun and He, Yutong and Song, Jiaming and Ermon, Stefano and Janowicz, Krzysztof and Lao, Ni},
   journal={ISPRS Journal of Photogrammetry and Remote Sensing},
   year={2023},
+  vol={202},
+  pages={439-462},
   publisher={Elsevier}
 }
 ```
